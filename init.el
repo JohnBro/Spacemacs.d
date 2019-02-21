@@ -278,7 +278,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative t
+   dotspacemacs-line-numbers '(:relative nil
                                :disabled-for-modes dired-mode
                                                    doc-view-mode
                                                    markdown-mode
@@ -350,6 +350,7 @@ you should place your code here."
   (setq-default dotspacemacs-enable-paste-transient-state t)
   (setq-default powerline-default-separator 'arrow)
   (setq-default evil-escape-delay 0.4)
+  (setq-default whitespace-trailing '(t (:underline "#FF2626")))
   (prefer-coding-system 'utf-8-unix)
 
   ;; Put all custom setting into custom.el
