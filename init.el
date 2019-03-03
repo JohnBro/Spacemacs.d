@@ -72,6 +72,7 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
                                     auto-complete helm-flyspell flyspell-correct-helm exec-path-from-shell
+                                    vi-tilde-fringe
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.

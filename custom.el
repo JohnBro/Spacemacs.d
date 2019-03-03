@@ -15,7 +15,7 @@
  '(which-key-side-window-max-height 0.333)
  '(whitespace-style
    (quote
-    (face trailing tabs lines newline empty indentation space-after-tab tab-mark)))
+    (face trailing tabs lines indentation space-after-tab tab-mark)))
  '(xref-prompt-for-identifier
    (quote
     (not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references))))
@@ -26,5 +26,5 @@
  ;; If there is more than one, they won't work right.
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
- '(whitespace-empty ((t (:underline "#FF2626"))))
+ '(whitespace-empty ((t nil)))
  '(whitespace-trailing ((t (:underline "#FF2626")))))
