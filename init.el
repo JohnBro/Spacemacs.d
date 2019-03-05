@@ -37,7 +37,6 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     ;; ivy
      better-defaults
      search-engine
      (auto-completion :variables auto-completion-enable-sort-by-usage t
@@ -55,12 +54,18 @@ values."
      shell-scripts
      vimscript
      shaders
+     python
+     html
+     java
      (gtags :variables gtags-enable-by-default nil)
      ;; version-control
      (spell-checking :variables spell-checking-enable-by-default nil)
      (syntax-checking :variables syntax-checking-enable-by-default nil
                       syntax-checking-enable-tooltips nil)
-     johnbro
+     (chinese :variables chinese-default-input-method 'Chinese-pyim
+              chinese-enable-fcitx nil
+              chinese-enable-youdao-dict t)
+     ;; johnbro
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -358,11 +363,23 @@ you should place your code here."
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file 'no-error 'no-message)
 
-  (global-hungry-delete-mode t)
-  ;; FIXME: workaround
-  ;; https://github.com/syl20bnr/spacemacs/issues/11798
-  (when (version<= "9.2" (org-version))
-    (require 'org-tempo))
+  ;; (global-hungry-delete-mode t)
+  (global-whitespace-mode t)
+
+  ;; use jk to repleace escape
+  (setq-default evil-escape-key-sequence "jk")
+
+  ;; use jkhl in other mode
+  (evil-add-hjkl-bindings package-menu-mode-map 'emacs)
+  (evil-add-hjkl-bindings custom-mode-map 'emacs)
+  (evil-add-hjkl-bindings recentf-dialog-mode-map 'emacs)
+
+  ;; Evil-normal state remap, gj -> j, gk -> k.
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-line)
+
+  ;; Evil-insert state remap
+  (define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
   )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -371,7 +388,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (transient lv helm-xref compan-lsp lsp-ui ccls lsp-mode ht dash-functional company-lsp flyspell-correct-helm company-quickhelp vimrc-mode insert-shebang fish-mode dactyl-mode company-shell glsl-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help helm-gtags ggtags flyspell-correct-ivy flyspell-correct flycheck-pos-tip flycheck engine-mode auto-dictionary youdao-dictionary names chinese-word-at-point pos-tip ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline powerline smex smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download mwim mmm-mode markdown-toc markdown-mode magit-gitflow ivy-hydra htmlize helm-gitignore request helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy evil-magit magit magit-popup git-commit with-editor disaster counsel-projectile counsel swiper ivy company-statistics company-c-headers company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-key auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (fcitx pyim pyim-basedict pangu-spacing find-by-pinyin-dired ace-pinyin pinyinlib yapfify web-mode tagedit slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements live-py-mode hy-mode helm-pydoc helm-css-scss haml-mode emmet-mode cython-mode company-web web-completion-data company-emacs-eclim eclim company-anaconda anaconda-mode pythonic transient lv helm-xref compan-lsp lsp-ui ccls lsp-mode ht dash-functional company-lsp flyspell-correct-helm company-quickhelp vimrc-mode insert-shebang fish-mode dactyl-mode company-shell glsl-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help helm-gtags ggtags flyspell-correct-ivy flyspell-correct flycheck-pos-tip flycheck engine-mode auto-dictionary youdao-dictionary names chinese-word-at-point pos-tip ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline powerline smex smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download mwim mmm-mode markdown-toc markdown-mode magit-gitflow ivy-hydra htmlize helm-gitignore request helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy evil-magit magit magit-popup git-commit with-editor disaster counsel-projectile counsel swiper ivy company-statistics company-c-headers company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-key auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
