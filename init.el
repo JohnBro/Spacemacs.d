@@ -39,11 +39,10 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; helm
-     ivy
+     helm
      better-defaults
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
-     treemacs
+     neotree
      search-engine
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       auto-completion-enable-snippets-in-popup t
@@ -56,9 +55,12 @@ This function should only modify configuration layer settings."
             shell-default-position 'bottom)
      emacs-lisp
      (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-ccls
-            c-c++-lsp-sem-highlight-rainbow t)
+            c-c++-lsp-sem-highlight-rainbow t
+            c-c++-enable-clang-support t
+            c-c++-lsp-sem-highlight-method 'overlay)
      markdown
      shell-scripts
      vimscript
@@ -76,7 +78,7 @@ This function should only modify configuration layer settings."
      (chinese :variables chinese-default-input-method 'Chinese-pyim
               chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
-     ;; johnbro
+     johnbro
      )
 
    ;; List of additional packages that will be installed without being
@@ -513,28 +515,6 @@ before packages are loaded."
 
   ;; (global-hungry-delete-mode t)
   (global-whitespace-mode t)
-
-  ;; use jk to repleace escape
-  (setq-default evil-escape-key-sequence "jk")
-
-  ;; use jkhl in other mode
-  (evil-add-hjkl-bindings package-menu-mode-map 'emacs)
-  (evil-add-hjkl-bindings custom-mode-map 'emacs)
-  (evil-add-hjkl-bindings recentf-dialog-mode-map 'emacs)
-
-  ;; Evil-normal state remap, gj -> j, gk -> k.
-  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-  (define-key evil-normal-state-map (kbd "k") 'evil-previous-line)
-
-  ;; Keep <C-t> to jump marker set.
-  (with-eval-after-load 'evil-mc
-    (evil-define-key 'normal evil-mc-key-map (kbd "C-t") nil)
-    (evil-define-key 'visual evil-mc-key-map (kbd "C-t") nil)
-    (evil-define-key 'normal evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match)
-    (evil-define-key 'visual evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match))
-
-  ;; Evil-insert state remap
-  (define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
 
   ;;All dired use only one buffer
   (put 'dired-find-alternate-file 'disabled nil)

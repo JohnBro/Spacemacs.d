@@ -9,8 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs/set-leader-keys "oo" 'occur-dwim)
-
 ;; use jk to repleace escape
 (setq-default evil-escape-key-sequence "jk")
 
@@ -25,3 +23,10 @@
 
 ;; Evil-insert state remap
 (define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
+
+;; Keep <C-t> to jump marker set.
+(with-eval-after-load 'evil-mc
+  (evil-define-key 'normal evil-mc-key-map (kbd "C-t") nil)
+  (evil-define-key 'visual evil-mc-key-map (kbd "C-t") nil)
+  (evil-define-key 'normal evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match)
+  (evil-define-key 'visual evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match))
