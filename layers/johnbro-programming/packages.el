@@ -13,7 +13,7 @@
 
 (defconst johnbro-programming-packages
   '(
-    cc-mode
+    (cc-mode :location built-in)
     sh-script
     ))
 

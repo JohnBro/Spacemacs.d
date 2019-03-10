@@ -9,24 +9,5 @@
 ;;
 ;;; License: GPLv3
 
-;; use jk to repleace escape
-(setq-default evil-escape-key-sequence "jk")
-
-;; use jkhl in other mode
-(evil-add-hjkl-bindings package-menu-mode-map 'emacs)
-(evil-add-hjkl-bindings custom-mode-map 'emacs)
-(evil-add-hjkl-bindings recentf-dialog-mode-map 'emacs)
-
-;; Evil-normal state remap, gj -> j, gk -> k.
-(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "k") 'evil-previous-line)
-
-;; Evil-insert state remap
-(define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
-
-;; Keep <C-t> to jump marker set.
-(with-eval-after-load 'evil-mc
-  (evil-define-key 'normal evil-mc-key-map (kbd "C-t") nil)
-  (evil-define-key 'visual evil-mc-key-map (kbd "C-t") nil)
-  (evil-define-key 'normal evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match)
-  (evil-define-key 'visual evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match))
+;; Enhance occur
+(global-set-key (kbd "M-s o") 'occur-dwim)

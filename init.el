@@ -59,7 +59,7 @@ This function should only modify configuration layer settings."
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-ccls
             c-c++-lsp-sem-highlight-rainbow t
-            c-c++-enable-clang-support t
+            c-c++-enable-clang-support nil
             c-c++-lsp-sem-highlight-method 'overlay)
      markdown
      shell-scripts
@@ -95,8 +95,7 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    auto-complete helm-flyspell flyspell-correct-helm exec-path-from-shell
-                                    vi-tilde-fringe
+                                    auto-complete vi-tilde-fringe
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -299,7 +298,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, the paste transient-state is enabled. While enabled, after you
    ;; paste something, pressing `C-j' and `C-k' several times cycles through the
    ;; elements in the `kill-ring'. (default nil)
-   dotspacemacs-enable-paste-transient-state nil
+   dotspacemacs-enable-paste-transient-state t
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
@@ -502,22 +501,10 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-  ;; set powerline to be arrow shape
-  (setq-default dotspacemacs-enable-paste-transient-state t)
-  (setq-default powerline-default-separator 'arrow)
-  (setq-default evil-escape-delay 0.4)
-  (setq-default whitespace-trailing '(t (:underline "#FF2626")))
-  (prefer-coding-system 'utf-8-unix)
-
+  (global-whitespace-mode t)
   ;; Put all custom setting into custom.el
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file 'no-error 'no-message)
-
-  ;; (global-hungry-delete-mode t)
-  (global-whitespace-mode t)
-
-  ;;All dired use only one buffer
-  (put 'dired-find-alternate-file 'disabled nil)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

@@ -31,7 +31,42 @@
 
 (defconst johnbro-base-packages
   '(
+    evil
+    evil-mc
+    evil-escape
+    whitespace
+    (dired :location built-in)
     ))
 
+(defun johnbro-base/post-init-evil()
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-line)
+  (define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop)
+  (evil-add-hjkl-bindings recentf-dialog-mode-map 'emacs)
+  (evil-add-hjkl-bindings custom-mode-map 'emacs)
+  )
+
+(defun johnbro-base/post-init-evil-mc()
+  ;; Keep use <C-t> to jump the marker.
+  (evil-define-key 'normal evil-mc-key-map (kbd "C-t") nil)
+  (evil-define-key 'visual evil-mc-key-map (kbd "C-t") nil)
+  (evil-define-key 'normal evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match)
+  (evil-define-key 'visual evil-mc-key-map (kbd "C-M-n") 'evil-mc-skip-and-goto-next-match)
+  )
+
+(defun johnbro-base/post-init-evil-escape ()
+  ;; use jk to repleace escape
+  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-delay 0.4)
+  )
+
+(defun johnbro-base/post-init-whitespace()
+  (setq-default whitespace-trailing '(t (:underline "#FF2626")))
+  )
+
+(defun johnbro-base/post-init-dired()
+  ;; All dired use only one buffer
+  (put 'dired-find-alternate-file 'disabled nil)
+  )
 
 ;;; packages.el ends here
