@@ -65,8 +65,19 @@
   )
 
 (defun johnbro-base/post-init-dired()
-  ;; All dired use only one buffer
-  (put 'dired-find-alternate-file 'disabled nil)
+  (use-package dired-mode
+    :defer t
+    :init
+    (progn
+      (require 'dired-x)
+      (setq dired-omit-files
+            (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$"))
+      ;; always delete and copy recursively
+      (setq dired-recursive-deletes 'always)
+      (setq dired-recursive-copies 'always)
+      ;; FIXME: don't work.
+      (put 'dired-find-alternate-file 'disabled nil)
+     ))
   )
 
 ;;; packages.el ends here

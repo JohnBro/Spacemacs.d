@@ -12,4 +12,5 @@
 (configuration-layer/declare-layers '(
                                       johnbro-base
                                       johnbro-programming
+                                      johnbro-org
                                       ))

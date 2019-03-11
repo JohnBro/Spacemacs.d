@@ -18,9 +18,12 @@
     ))
 
 (defun johnbro-programming/post-init-cc-mode ()
-  (add-hook 'c-mode-hook 'johnbro-programming/indent-cc-mode)
-  (add-hook 'c++-mode-hook 'johnbro-programming/indent-cc-mode)
-  (add-hook 'objc-mode-hook 'johnbro-programming/indent-cc-mode)
+  (with-eval-after-load 'cc-mode
+    (progn
+      (add-hook 'c-mode-hook 'johnbro-programming/indent-cc-mode)
+      (add-hook 'c++-mode-hook 'johnbro-programming/indent-cc-mode)
+      (add-hook 'objc-mode-hook 'johnbro-programming/indent-cc-mode)
+      ))
   )
 
 (defun johnbro-programming/post-init-sh-script ()
