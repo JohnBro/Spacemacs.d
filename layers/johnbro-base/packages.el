@@ -65,14 +65,8 @@
   )
 
 (defun johnbro-base/post-init-dired()
-  (use-package dired-mode
-    :defer t
-    :init
+  (with-eval-after-load 'dired
     (progn
-      (require 'dired-x)
-      (setq dired-omit-files
-            (concat dired-omit-files "\\|^.DS_Store$\\|^.projectile$\\|\\.js\\.meta$\\|\\.meta$"))
-      ;; always delete and copy recursively
       (setq dired-recursive-deletes 'always)
       (setq dired-recursive-copies 'always)
       ;; FIXME: don't work.
