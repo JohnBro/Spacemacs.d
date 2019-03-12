@@ -20,9 +20,12 @@
 (defun johnbro-programming/post-init-cc-mode ()
   (with-eval-after-load 'cc-mode
     (progn
-      (add-hook 'c-mode-hook 'johnbro-programming/indent-cc-mode)
-      (add-hook 'c++-mode-hook 'johnbro-programming/indent-cc-mode)
-      (add-hook 'objc-mode-hook 'johnbro-programming/indent-cc-mode)
+      (add-hook 'c-mode-common-hook 'johnbro-programming/indent-cc-mode)
+      (add-hook 'c-mode-common-hook
+                '(lambda()
+                   (setq fill-column 120)
+                   (auto-fill-mode)
+                   ))
       ))
   )
 

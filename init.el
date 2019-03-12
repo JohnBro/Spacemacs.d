@@ -60,6 +60,8 @@ This function should only modify configuration layer settings."
             c-c++-backend 'lsp-ccls
             c-c++-lsp-sem-highlight-rainbow t
             c-c++-enable-clang-support nil
+            c-c++-enable-google-style t
+            c-c++-enable-google-newline t
             c-c++-lsp-sem-highlight-method 'overlay)
      markdown
      shell-scripts
